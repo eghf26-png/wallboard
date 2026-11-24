@@ -8,60 +8,29 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0b1b2e;
-    --navy:#0f2742;
-    --panel-2:#17304b;
-    --line:#26425f;
-    --text:#eaf1f8;
-    --muted:#9db4cc;
-    --accent:#36b3a8;
-    --accent-2:#5aa9e6;
-    --done:#2f8f5b;
-    --today:#e0b341;
-  }
+  :root{--bg:#0b1b2e;--navy:#0f2742;--panel-2:#17304b;--line:#26425f;--text:#eaf1f8;--muted:#9db4cc;--accent:#36b3a8;--accent-2:#5aa9e6;--done:#2f8f5b;--today:#e0b341;}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{height:100%}
-  body{
-    margin:0;background:var(--bg);color:var(--text);
-    font-family:'Jost',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    overflow:hidden;
-  }
-  .app{display:flex;flex-direction:column;height:100vh;height:100dvh}
-  header{
-    display:flex;align-items:baseline;justify-content:space-between;
-    padding:18px 26px 14px;border-bottom:1px solid var(--line);
-    background:linear-gradient(180deg,var(--navy),transparent);
-  }
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Jost',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+  .app{display:flex;flex-direction:column;height:100vh}
+  header{display:flex;align-items:baseline;justify-content:space-between;padding:18px 26px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--navy),transparent)}
   header .clock{font-size:46px;font-weight:600;letter-spacing:.5px;line-height:1}
   header .date{font-size:20px;color:var(--muted);margin-top:6px}
   header .right{text-align:right}
   header .who{font-size:16px;color:var(--muted)}
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1;min-height:0}
+  .cols{display:grid;grid-template-columns:1fr 1fr;flex:1;min-height:0}
   .col{min-height:0;display:flex;flex-direction:column;border-right:1px solid var(--line)}
   .col:last-child{border-right:none}
-  .col h2{
-    margin:0;padding:14px 22px;font-size:20px;font-weight:600;letter-spacing:.4px;
-    color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--line);
-    display:flex;align-items:center;gap:10px
-  }
+  .col h2{margin:0;padding:14px 22px;font-size:20px;font-weight:600;letter-spacing:.4px;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
   .col h2 .dot{width:10px;height:10px;border-radius:50%}
   .scroll{overflow-y:auto;overflow-x:hidden;padding:10px 0 30px;-webkit-overflow-scrolling:touch;flex:1}
   .scroll::-webkit-scrollbar{width:10px}
   .scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:10px}
-
-  /* Tasks */
   .list-group{margin:6px 0 14px}
   .list-title{padding:8px 22px 4px;font-size:15px;color:var(--accent);font-weight:600;letter-spacing:.3px}
-  .task{
-    display:flex;align-items:flex-start;gap:14px;padding:14px 22px;
-    border-bottom:1px solid rgba(38,66,95,.5);cursor:pointer;transition:background .12s
-  }
+  .task{display:flex;align-items:flex-start;gap:14px;padding:14px 22px;border-bottom:1px solid rgba(38,66,95,.5);cursor:pointer;transition:background .12s}
   .task:active{background:var(--panel-2)}
-  .check{
-    flex:0 0 auto;width:28px;height:28px;border-radius:8px;border:2px solid var(--muted);
-    margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s
-  }
+  .check{flex:0 0 auto;width:28px;height:28px;border-radius:8px;border:2px solid var(--muted);margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s}
   .check svg{width:18px;height:18px;opacity:0;transform:scale(.6);transition:all .15s}
   .task.completing .check{background:var(--done);border-color:var(--done)}
   .task.completing .check svg{opacity:1;transform:scale(1)}
@@ -72,13 +41,8 @@
   .t-meta .due.overdue{color:#ef8f8f}
   .t-meta .due.today{color:var(--today)}
   .star{color:var(--today)}
-
-  /* Calendar */
   .day{padding:4px 0}
-  .day-head{
-    padding:10px 22px 6px;font-size:15px;font-weight:600;color:var(--muted);
-    text-transform:uppercase;letter-spacing:.4px
-  }
+  .day-head{padding:10px 22px 6px;font-size:15px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
   .day-head.is-today{color:var(--today)}
   .event{display:flex;gap:16px;padding:11px 22px;border-bottom:1px solid rgba(38,66,95,.5)}
   .ev-time{flex:0 0 auto;width:72px;text-align:right;color:var(--accent-2);font-size:18px;font-weight:500;line-height:1.3}
@@ -87,55 +51,34 @@
   .ev-title{font-size:20px;line-height:1.25}
   .ev-loc{margin-top:4px;font-size:15px;color:var(--muted)}
   .ev-bar{flex:0 0 auto;width:4px;border-radius:4px;background:var(--accent-2)}
-
   .empty{padding:30px 22px;color:var(--muted);font-size:18px}
-  .err{padding:14px 22px;color:#ef8f8f;font-size:15px;white-space:pre-wrap}
-
-  .overlay{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:22px;z-index:50;padding:24px}
+  .err{padding:14px 22px;color:#ef8f8f;font-size:14px;white-space:pre-wrap}
+  .overlay{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:22px;z-index:50;padding:24px;text-align:center}
   .overlay h1{font-weight:600;font-size:30px;margin:0}
-  .overlay p{color:var(--muted);margin:0;font-size:18px;text-align:center;max-width:480px}
-  .btn{
-    font-family:inherit;font-size:20px;font-weight:600;color:#fff;background:var(--accent);
-    border:none;border-radius:12px;padding:16px 34px;cursor:pointer
-  }
+  .overlay p{color:var(--muted);margin:0;font-size:18px;max-width:520px}
+  .btn{font-family:inherit;font-size:20px;font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:12px;padding:16px 34px;cursor:pointer}
   .hidden{display:none!important}
   .refreshing{position:fixed;bottom:8px;left:14px;font-size:12px;color:#5f7a97;opacity:.7}
-  .footer{position:fixed;bottom:8px;right:14px;font-size:12px;color:#5f7a97;opacity:.6}
 </style>
 </head>
 <body>
   <div class="app hidden" id="app">
     <header>
-      <div>
-        <div class="clock" id="clock">--:--</div>
-        <div class="date" id="date"></div>
-      </div>
-      <div class="right">
-        <div class="who" id="who"></div>
-      </div>
+      <div><div class="clock" id="clock">--:--</div><div class="date" id="date"></div></div>
+      <div class="right"><div class="who" id="who"></div></div>
     </header>
     <div class="cols">
-      <section class="col">
-        <h2><span class="dot" style="background:var(--accent)"></span>To Do</h2>
-        <div class="scroll" id="tasks"><div class="empty">Loading…</div></div>
-      </section>
-      <section class="col">
-        <h2><span class="dot" style="background:var(--accent-2)"></span>Calendar</h2>
-        <div class="scroll" id="cal"><div class="empty">Loading…</div></div>
-      </section>
+      <section class="col"><h2><span class="dot" style="background:var(--accent)"></span>To Do</h2><div class="scroll" id="tasks"><div class="empty">Loading…</div></div></section>
+      <section class="col"><h2><span class="dot" style="background:var(--accent-2)"></span>Calendar</h2><div class="scroll" id="cal"><div class="empty">Loading…</div></div></section>
     </div>
   </div>
-
   <div class="overlay" id="signin">
     <h1 id="si-title">Wall Board</h1>
     <p id="si-msg">Sign in with your Microsoft 365 account to show your tasks and calendar.</p>
     <button class="btn" id="si-btn">Sign in</button>
   </div>
-
   <div class="refreshing hidden" id="refreshing">Updating…</div>
-  <div class="footer" id="footer"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@3.7.1/lib/msal-browser.min.js"></script>
 <script src="config.js"></script>
 <script>
 (function(){
@@ -143,239 +86,251 @@
   var CFG = window.DASHBOARD_CONFIG || {};
   var clientId = CFG.clientId || "";
   var tenantId = CFG.tenantId || "common";
-  var SCOPES = ["User.Read","Tasks.ReadWrite","Calendars.Read"];
+  var tz = CFG.timezone || "GMT Standard Time";
+  var authority = "https://login.microsoftonline.com/" + tenantId;
+  var redirectUri = window.location.origin + window.location.pathname;
+  var SCOPES = ["openid","profile","offline_access","User.Read","Tasks.ReadWrite","Calendars.Read"];
   var GRAPH = "https://graph.microsoft.com/v1.0";
   var REFRESH_MS = 5*60*1000;
-  var tz = CFG.timezone || "GMT Standard Time";
+  var TOK = "wb_tok_v2";
 
-  var el = function(id){return document.getElementById(id);};
-  var signinEl = el("signin"), appEl = el("app");
-  var pca = null, account = null, refreshing = false;
-
+  function el(id){return document.getElementById(id);}
   function pad(n){return (n<10?"0":"")+n;}
-  function tickClock(){
-    var d=new Date();
-    el("clock").textContent = pad(d.getHours())+":"+pad(d.getMinutes());
-    el("date").textContent = d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});
-  }
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+
+  function tickClock(){var d=new Date();el("clock").textContent=pad(d.getHours())+":"+pad(d.getMinutes());el("date").textContent=d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});}
   setInterval(tickClock,10000); tickClock();
 
-  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function showErr(where,msg){ el(where).innerHTML='<div class="err">'+esc(msg)+'</div>'; }
 
   if(!clientId){
-    el("si-title").textContent = "Almost ready";
-    el("si-msg").textContent = "This board has no Microsoft sign-in details yet. They get added once the Microsoft 365 registration is done.";
-    el("si-btn").classList.add("hidden");
-    return;
+    el("si-title").textContent="Almost ready";
+    el("si-msg").textContent="This board has no Microsoft sign-in details yet.";
+    el("si-btn").classList.add("hidden"); return;
   }
 
-  pca = new msal.PublicClientApplication({
-    auth:{
-      clientId: clientId,
-      authority: "https://login.microsoftonline.com/"+tenantId,
-      redirectUri: window.location.origin + window.location.pathname
-    },
-    cache:{ cacheLocation:"localStorage", storeAuthStateInCookie:false }
-  });
+  // ---------- PKCE helpers (works on older browsers) ----------
+  function b64url(bytes){var s="";for(var i=0;i<bytes.length;i++){s+=String.fromCharCode(bytes[i]);}return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");}
+  function randStr(){var a=new Uint8Array(32);crypto.getRandomValues(a);return b64url(a);}
+  function sha256b64(str){var data=new TextEncoder().encode(str);return crypto.subtle.digest("SHA-256",data).then(function(buf){return b64url(new Uint8Array(buf));});}
+  function store(name,v){try{localStorage.setItem(name,v);}catch(e){}}
+  function read(name){try{return localStorage.getItem(name);}catch(e){return null;}}
 
-  function setSignedIn(acc){
-    account = acc;
-    pca.setActiveAccount(acc);
-    signinEl.classList.add("hidden");
-    appEl.classList.remove("hidden");
-    el("who").textContent = acc.name || acc.username || "";
-    loadAll();
+  function getTok(){try{return JSON.parse(read(TOK)||"{}");}catch(e){return {};}}
+  function saveTok(t){
+    var cur=getTok();
+    var exp=Date.now()+((t.expires_in?t.expires_in:3600)-120)*1000;
+    store(TOK, JSON.stringify({a:t.access_token, r:t.refresh_token||cur.r, exp:exp}));
   }
 
-  async function getToken(){
-    try{
-      var r = await pca.acquireTokenSilent({scopes:SCOPES, account:account});
-      return r.accessToken;
-    }catch(e){
-      await pca.acquireTokenRedirect({scopes:SCOPES});
-      return null;
-    }
+  function login(){
+    var v=randStr(), st=randStr();
+    store("wb_verifier",v); store("wb_state",st);
+    sha256b64(v).then(function(ch){
+      var p="client_id="+encodeURIComponent(clientId)+
+        "&response_type=code&redirect_uri="+encodeURIComponent(redirectUri)+
+        "&response_mode=query&scope="+encodeURIComponent(SCOPES.join(" "))+
+        "&state="+encodeURIComponent(st)+
+        "&code_challenge="+encodeURIComponent(ch)+"&code_challenge_method=S256&prompt=select_account";
+      window.location.href = authority+"/oauth2/v2.0/authorize?"+p;
+    });
   }
 
-  async function gfetch(path, opts){
-    var token = await getToken();
-    if(!token) return null;
-    opts = opts || {};
-    opts.headers = Object.assign({
-      Authorization: "Bearer "+token,
-      "Content-Type":"application/json",
-      Prefer: 'outlook.timezone="'+tz+'"'
-    }, opts.headers||{});
-    var res = await fetch(GRAPH+path, opts);
-    if(res.status===401){ await pca.acquireTokenRedirect({scopes:SCOPES}); return null; }
-    return res;
+  function tokenRequest(params){
+    return fetch(authority+"/oauth2/v2.0/token",{
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body:params
+    });
   }
 
-  function dueClass(dateStr){
-    if(!dateStr) return "";
-    var d=new Date(dateStr), now=new Date();
-    var td=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-    var dd=new Date(d.getFullYear(),d.getMonth(),d.getDate());
-    if(dd<td) return "overdue";
-    if(dd.getTime()===td.getTime()) return "today";
-    return "";
-  }
-  function dueLabel(dateStr){
-    if(!dateStr) return "";
-    var d=new Date(dateStr), now=new Date();
-    var td=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-    var dd=new Date(d.getFullYear(),d.getMonth(),d.getDate());
-    var diff=Math.round((dd-td)/86400000);
-    if(diff===0) return "Due today";
-    if(diff===1) return "Due tomorrow";
-    if(diff===-1) return "Due yesterday";
-    if(diff<0) return "Overdue "+(-diff)+"d";
-    return "Due "+d.toLocaleDateString("en-GB",{day:"numeric",month:"short"});
+  function exchangeCode(code){
+    var v=read("wb_verifier");
+    var body="client_id="+encodeURIComponent(clientId)+
+      "&grant_type=authorization_code&code="+encodeURIComponent(code)+
+      "&redirect_uri="+encodeURIComponent(redirectUri)+
+      "&code_verifier="+encodeURIComponent(v)+
+      "&scope="+encodeURIComponent(SCOPES.join(" "));
+    return tokenRequest(body).then(function(res){
+      return res.text().then(function(txt){
+        if(!res.ok) throw new Error("Sign-in token error "+res.status+": "+txt);
+        saveTok(JSON.parse(txt));
+      });
+    });
   }
 
-  async function loadTasks(){
-    var box = el("tasks");
-    try{
-      var listsRes = await gfetch("/me/todo/lists");
-      if(!listsRes) return;
-      var lists = (await listsRes.json()).value || [];
-      var html = "", any=false;
-      for(var i=0;i<lists.length;i++){
-        var list = lists[i];
-        var q = "/me/todo/lists/"+list.id+"/tasks?$filter=status%20ne%20'completed'&$top=50";
-        var tRes = await gfetch(q);
-        if(!tRes) return;
-        var tasks = (await tRes.json()).value || [];
-        if(!tasks.length) continue;
-        tasks.sort(function(a,b){
-          var ia=a.importance==="high"?0:1, ib=b.importance==="high"?0:1;
-          if(ia!==ib) return ia-ib;
-          var da=a.dueDateTime?new Date(a.dueDateTime.dateTime):null;
-          var db=b.dueDateTime?new Date(b.dueDateTime.dateTime):null;
-          if(da&&db) return da-db; if(da) return -1; if(db) return 1; return 0;
+  function refresh(){
+    var cur=getTok();
+    if(!cur.r) return Promise.resolve(false);
+    var body="client_id="+encodeURIComponent(clientId)+
+      "&grant_type=refresh_token&refresh_token="+encodeURIComponent(cur.r)+
+      "&redirect_uri="+encodeURIComponent(redirectUri)+
+      "&scope="+encodeURIComponent(SCOPES.join(" "));
+    return tokenRequest(body).then(function(res){
+      if(!res.ok) return false;
+      return res.json().then(function(t){ saveTok(t); return true; });
+    }).catch(function(){return false;});
+  }
+
+  function getToken(){
+    var cur=getTok();
+    if(cur.a && cur.exp && Date.now()<cur.exp) return Promise.resolve(cur.a);
+    return refresh().then(function(ok){ return ok? getTok().a : null; });
+  }
+
+  function gfetch(path,opts){
+    return getToken().then(function(token){
+      if(!token){ login(); return null; }
+      opts=opts||{};
+      opts.headers=Object.assign({
+        "Authorization":"Bearer "+token,
+        "Content-Type":"application/json",
+        "Prefer":'outlook.timezone="'+tz+'"'
+      }, opts.headers||{});
+      return fetch(GRAPH+path,opts).then(function(res){
+        if(res.status===401){ store(TOK,"{}"); login(); return null; }
+        return res;
+      });
+    });
+  }
+
+  // ---------- Rendering ----------
+  function dueClass(s){if(!s)return"";var d=new Date(s),n=new Date();var t=new Date(n.getFullYear(),n.getMonth(),n.getDate());var dd=new Date(d.getFullYear(),d.getMonth(),d.getDate());if(dd<t)return"overdue";if(dd.getTime()===t.getTime())return"today";return"";}
+  function dueLabel(s){if(!s)return"";var d=new Date(s),n=new Date();var t=new Date(n.getFullYear(),n.getMonth(),n.getDate());var dd=new Date(d.getFullYear(),d.getMonth(),d.getDate());var diff=Math.round((dd-t)/86400000);if(diff===0)return"Due today";if(diff===1)return"Due tomorrow";if(diff===-1)return"Due yesterday";if(diff<0)return"Overdue "+(-diff)+"d";return"Due "+d.toLocaleDateString("en-GB",{day:"numeric",month:"short"});}
+
+  function loadTasks(){
+    var box=el("tasks");
+    return gfetch("/me/todo/lists").then(function(r){
+      if(!r) return; return r.json();
+    }).then(function(data){
+      if(!data) return;
+      var lists=data.value||[];
+      var chain=Promise.resolve(""); var any=false;
+      lists.forEach(function(list){
+        chain=chain.then(function(html){
+          return gfetch("/me/todo/lists/"+list.id+"/tasks?$filter=status%20ne%20'completed'&$top=50").then(function(r){
+            if(!r) return html; return r.json().then(function(d){
+              var tasks=d.value||[];
+              if(!tasks.length) return html;
+              tasks.sort(function(a,b){var ia=a.importance==="high"?0:1,ib=b.importance==="high"?0:1;if(ia!==ib)return ia-ib;var da=a.dueDateTime?new Date(a.dueDateTime.dateTime):null,db=b.dueDateTime?new Date(b.dueDateTime.dateTime):null;if(da&&db)return da-db;if(da)return -1;if(db)return 1;return 0;});
+              any=true;
+              html+='<div class="list-group"><div class="list-title">'+esc(list.displayName)+'</div>';
+              tasks.forEach(function(t){
+                var due=t.dueDateTime?t.dueDateTime.dateTime:"";
+                var star=t.importance==="high"?'<span class="star">★</span>':"";
+                var meta=due?'<span class="due '+dueClass(due)+'">'+dueLabel(due)+'</span>':"";
+                html+='<div class="task" data-list="'+list.id+'" data-task="'+t.id+'"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><div class="t-body"><div class="t-title">'+esc(t.title)+' '+star+'</div>'+(meta?'<div class="t-meta">'+meta+'</div>':'')+'</div></div>';
+              });
+              html+='</div>';
+              return html;
+            });
+          });
         });
-        any=true;
-        html += '<div class="list-group"><div class="list-title">'+esc(list.displayName)+'</div>';
-        for(var j=0;j<tasks.length;j++){
-          var t=tasks[j];
-          var due = t.dueDateTime? t.dueDateTime.dateTime : "";
-          var star = t.importance==="high"? '<span class="star">★</span>' : "";
-          var meta = due? '<span class="due '+dueClass(due)+'">'+dueLabel(due)+'</span>' : "";
-          html += '<div class="task" data-list="'+list.id+'" data-task="'+t.id+'">'+
-            '<div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>'+
-            '<div class="t-body"><div class="t-title">'+esc(t.title)+' '+star+'</div>'+
-            (meta?'<div class="t-meta">'+meta+'</div>':'')+'</div></div>';
-        }
-        html += '</div>';
-      }
-      box.innerHTML = any? html : '<div class="empty">Nothing outstanding. All clear.</div>';
-      bindTasks();
-    }catch(e){
-      box.innerHTML = '<div class="err">Could not load tasks.\n'+esc(e.message||e)+'</div>';
-    }
+      });
+      return chain.then(function(html){
+        box.innerHTML = any? html : '<div class="empty">Nothing outstanding. All clear.</div>';
+        bindTasks();
+      });
+    }).catch(function(e){ showErr("tasks","Could not load tasks.\n"+(e.message||e)); });
   }
 
   function bindTasks(){
-    var items = document.querySelectorAll(".task");
+    var items=document.querySelectorAll(".task");
     for(var i=0;i<items.length;i++){
-      items[i].addEventListener("click", function(){
+      items[i].addEventListener("click",function(){
         var node=this;
         if(node.classList.contains("completing")) return;
         node.classList.add("completing");
-        completeTask(node.getAttribute("data-list"), node.getAttribute("data-task"))
-          .then(function(ok){
-            if(ok){
-              setTimeout(function(){
-                node.style.height=node.offsetHeight+"px"; node.style.overflow="hidden";
-                requestAnimationFrame(function(){
-                  node.style.transition="all .3s"; node.style.height="0";
-                  node.style.paddingTop="0"; node.style.paddingBottom="0"; node.style.opacity="0";
-                  setTimeout(function(){ node.remove(); },320);
-                });
-              },450);
-            } else { node.classList.remove("completing"); }
-          });
+        completeTask(node.getAttribute("data-list"),node.getAttribute("data-task")).then(function(ok){
+          if(ok){
+            setTimeout(function(){
+              node.style.height=node.offsetHeight+"px"; node.style.overflow="hidden";
+              requestAnimationFrame(function(){
+                node.style.transition="all .3s"; node.style.height="0"; node.style.paddingTop="0"; node.style.paddingBottom="0"; node.style.opacity="0";
+                setTimeout(function(){ node.parentNode && node.parentNode.removeChild(node); },320);
+              });
+            },450);
+          } else { node.classList.remove("completing"); }
+        });
       });
     }
   }
 
-  async function completeTask(listId, taskId){
-    try{
-      var res = await gfetch("/me/todo/lists/"+listId+"/tasks/"+taskId,
-        {method:"PATCH", body: JSON.stringify({status:"completed"})});
-      return res && res.ok;
-    }catch(e){ return false; }
+  function completeTask(listId,taskId){
+    return gfetch("/me/todo/lists/"+listId+"/tasks/"+taskId,{method:"PATCH",body:JSON.stringify({status:"completed"})}).then(function(res){return res&&res.ok;}).catch(function(){return false;});
   }
 
-  async function loadCalendar(){
-    var box = el("cal");
-    try{
-      var now=new Date();
-      var start=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-      var end=new Date(start); end.setDate(end.getDate()+7);
-      var q="/me/calendarView?startDateTime="+start.toISOString()+"&endDateTime="+end.toISOString()+
-            "&$orderby=start/dateTime&$top=100&$select=subject,start,end,location,isAllDay";
-      var res=await gfetch(q);
-      if(!res) return;
-      var events=(await res.json()).value||[];
+  function loadCalendar(){
+    var box=el("cal");
+    var now=new Date();
+    var start=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    var end=new Date(start); end.setDate(end.getDate()+7);
+    var q="/me/calendarView?startDateTime="+start.toISOString()+"&endDateTime="+end.toISOString()+"&$orderby=start/dateTime&$top=100&$select=subject,start,end,location,isAllDay";
+    return gfetch(q).then(function(r){ if(!r) return; return r.json(); }).then(function(data){
+      if(!data) return;
+      var events=data.value||[];
       if(!events.length){ box.innerHTML='<div class="empty">Nothing in the next seven days.</div>'; return; }
       var byDay={}, order=[];
-      events.forEach(function(ev){
-        var d=new Date(ev.start.dateTime||ev.start.date);
-        var key=d.toDateString();
-        if(!byDay[key]){byDay[key]=[];order.push(key);}
-        byDay[key].push(ev);
-      });
-      var todayKey=new Date().toDateString();
-      var html="";
+      events.forEach(function(ev){var d=new Date(ev.start.dateTime||ev.start.date);var key=d.toDateString();if(!byDay[key]){byDay[key]=[];order.push(key);}byDay[key].push(ev);});
+      var todayKey=new Date().toDateString(); var html="";
       order.forEach(function(key){
-        var d=new Date(key);
-        var label=d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});
-        var isToday=key===todayKey;
+        var d=new Date(key);var label=d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});var isToday=key===todayKey;
         html+='<div class="day"><div class="day-head'+(isToday?' is-today':'')+'">'+(isToday?'Today — ':'')+esc(label)+'</div>';
         byDay[key].forEach(function(ev){
           var time;
           if(ev.isAllDay){ time='<span class="all">All day</span>'; }
-          else{
-            var s=new Date(ev.start.dateTime), e=new Date(ev.end.dateTime);
-            time=pad(s.getHours())+":"+pad(s.getMinutes())+'<br><span class="all">'+pad(e.getHours())+":"+pad(e.getMinutes())+'</span>';
-          }
-          var loc=ev.location&&ev.location.displayName? '<div class="ev-loc">'+esc(ev.location.displayName)+'</div>':'';
-          html+='<div class="event"><div class="ev-bar"></div><div class="ev-time">'+time+'</div>'+
-                '<div class="ev-body"><div class="ev-title">'+esc(ev.subject||"(no subject)")+'</div>'+loc+'</div></div>';
+          else{ var s=new Date(ev.start.dateTime),e=new Date(ev.end.dateTime); time=pad(s.getHours())+":"+pad(s.getMinutes())+'<br><span class="all">'+pad(e.getHours())+":"+pad(e.getMinutes())+'</span>'; }
+          var loc=ev.location&&ev.location.displayName?'<div class="ev-loc">'+esc(ev.location.displayName)+'</div>':'';
+          html+='<div class="event"><div class="ev-bar"></div><div class="ev-time">'+time+'</div><div class="ev-body"><div class="ev-title">'+esc(ev.subject||"(no subject)")+'</div>'+loc+'</div></div>';
         });
         html+='</div>';
       });
       box.innerHTML=html;
-    }catch(e){
-      box.innerHTML='<div class="err">Could not load calendar.\n'+esc(e.message||e)+'</div>';
-    }
+    }).catch(function(e){ showErr("cal","Could not load calendar.\n"+(e.message||e)); });
   }
 
-  async function loadAll(){
-    if(refreshing) return; refreshing=true;
+  var busy=false;
+  function loadAll(){
+    if(busy) return; busy=true;
     el("refreshing").classList.remove("hidden");
-    await loadTasks();
-    await loadCalendar();
-    el("refreshing").classList.add("hidden");
-    refreshing=false;
+    loadTasks().then(loadCalendar).then(function(){ el("refreshing").classList.add("hidden"); busy=false; });
   }
-  setInterval(function(){ if(account) loadAll(); }, REFRESH_MS);
+  setInterval(function(){ if(getTok().a||getTok().r) loadAll(); }, REFRESH_MS);
 
-  el("si-btn").addEventListener("click", function(){
-    pca.loginRedirect({scopes:SCOPES});
-  });
+  function signedIn(){
+    el("signin").classList.add("hidden");
+    el("app").classList.remove("hidden");
+    gfetch("/me?$select=displayName,userPrincipalName").then(function(r){ if(!r) return; return r.json(); }).then(function(me){ if(me) el("who").textContent=me.displayName||me.userPrincipalName||""; }).catch(function(){});
+    loadAll();
+  }
 
-  pca.initialize().then(function(){
-    return pca.handleRedirectPromise();
-  }).then(function(resp){
-    if(resp && resp.account){ setSignedIn(resp.account); return; }
-    var accts = pca.getAllAccounts();
-    if(accts.length){ setSignedIn(accts[0]); }
-    else { signinEl.classList.remove("hidden"); }
-  }).catch(function(e){
-    el("si-msg").textContent = "Sign-in error: "+(e.message||e);
-  });
+  el("si-btn").addEventListener("click", login);
+
+  // ---------- Boot ----------
+  function boot(){
+    var qs=new URLSearchParams(window.location.search);
+    if(qs.get("error")){
+      el("si-msg").textContent="Sign-in error: "+(qs.get("error_description")||qs.get("error"));
+      el("signin").classList.remove("hidden"); return;
+    }
+    if(qs.get("code")){
+      if(qs.get("state")!==read("wb_state")){
+        el("si-msg").textContent="Sign-in state mismatch, please try again.";
+        el("signin").classList.remove("hidden"); return;
+      }
+      exchangeCode(qs.get("code")).then(function(){
+        history.replaceState({}, "", redirectUri);
+        signedIn();
+      }).catch(function(e){
+        el("si-msg").textContent=(e.message||String(e)).slice(0,300);
+        el("signin").classList.remove("hidden");
+      });
+      return;
+    }
+    var cur=getTok();
+    if(cur.a||cur.r){ signedIn(); } else { el("signin").classList.remove("hidden"); }
+  }
+  boot();
 })();
 </script>
 </body>
